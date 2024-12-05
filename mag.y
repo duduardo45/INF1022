@@ -20,12 +20,12 @@ int negar = 0;
 %token <var> NUM
 %token <var> VAR
 %token FACA SER SER_IGUAL_A MOSTRE SOME SOMA_DE MULTIPLIQUE MULTIPLICACAO_DE COM POR REPITA VEZES FIM SE ENTAO SENAO
-%token NAO_ACONTECER_QUE NAO_FOR FOR
+%token NAO_ACONTECER_QUE FOR
 %token MAIOR_QUE MENOR_QUE IGUAL_A MAIOR_OU_IGUAL_QUE MENOR_OU_IGUAL_QUE DIFERENTE_DE
 %token E OU
 %token EOL
 
-%type <var> cmds cmd operacao condicao condicao_nao_nula compara comparador operador_logico objeto
+%type <var> cmds cmd operacao condicao condicao_nao_nula compara operador_logico objeto
 %type <var> atribuicao impressao repeticao condicional
 
 
@@ -50,7 +50,7 @@ cmd:
 atribuicao: 
             FACA VAR SER NUM 
             {
-                fprintf(output, "int %s=%s", $2, $4); 
+                fprintf(output, "float %s=%s", $2, $4); 
             }
             EOL
             {
@@ -58,7 +58,7 @@ atribuicao:
             }
             | FACA VAR SER_IGUAL_A VAR
             {
-                fprintf(output, "int %s=%s", $2, $4); 
+                fprintf(output, "float %s=%s", $2, $4); 
             } 
             EOL
             {
@@ -67,7 +67,7 @@ atribuicao:
             
             | FACA VAR SER_IGUAL_A 
             {
-                fprintf(output, "int %s=", $2); 
+                fprintf(output, "float %s=", $2); 
             }
             operacao EOL
             {
@@ -78,7 +78,7 @@ atribuicao:
 impressao: 
             MOSTRE 
             {
-                fprintf(output, "printf(\"%%d\\n\","); 
+                fprintf(output, "printf(\"%%f\\n\","); 
             }
             objeto 
             {
@@ -90,7 +90,7 @@ impressao:
             }
             | MOSTRE 
             {
-                fprintf(output, "printf(\"%%d\\n\","); 
+                fprintf(output, "printf(\"%%f\\n\","); 
             }
             operacao 
             {
@@ -209,34 +209,17 @@ condicao:
 
 condicao_nao_nula: 
             objeto
-            |{
-                if (negar) fprintf(output, "!(");
-            }
-            objeto compara objeto
-            {
-                if (negar) fprintf(output, ")");
-            }
-            |{
-                if (negar) fprintf(output, "!(");
-            }
-            objeto compara objeto operador_logico condicao
-            {
-                if (negar) fprintf(output, ")");
-            }
+            | objeto compara objeto
+            | objeto compara objeto operador_logico condicao
             ;
 
 compara: 
-            NAO_FOR comparador { negar = 1; }
-            | FOR comparador { negar = 0; }
-            ;
-
-comparador: 
-            MAIOR_QUE             { fprintf(output, ">"); }
-            | MENOR_QUE           { fprintf(output, "<"); }
-            | IGUAL_A             { fprintf(output, "=="); }
-            | MAIOR_OU_IGUAL_QUE  { fprintf(output, ">="); }
-            | MENOR_OU_IGUAL_QUE  { fprintf(output, "<="); }
-            | DIFERENTE_DE        { fprintf(output, "!="); }
+            FOR MAIOR_QUE             { fprintf(output, ">"); }
+            | FOR MENOR_QUE           { fprintf(output, "<"); }
+            | FOR IGUAL_A             { fprintf(output, "=="); }
+            | FOR MAIOR_OU_IGUAL_QUE  { fprintf(output, ">="); }
+            | FOR MENOR_OU_IGUAL_QUE  { fprintf(output, "<="); }
+            | FOR DIFERENTE_DE        { fprintf(output, "!="); }
             ;
 
 operador_logico: 
@@ -261,7 +244,7 @@ int main() {
         perror("Erro ao criar arquivo de saída");
         return 1;
     }
-    fprintf(output, "int main() {\n\n"); 
+    fprintf(output, "#include <stdio.h>\n\nint main() {\n\n"); 
     yyparse();
     fprintf(output, "\nreturn 0;\n}\n");
     fclose(output);

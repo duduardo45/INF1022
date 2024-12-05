@@ -20,7 +20,6 @@
 "ENTAO"                  {return ENTAO;}
 "SENAO"                  {return SENAO;}
 "NAO ACONTECER QUE"      {return NAO_ACONTECER_QUE;}
-"NAO FOR"                {return NAO_FOR;}
 "FOR"                    {return FOR;}
 "MAIOR QUE"              {return MAIOR_QUE;}
 "MENOR QUE"              {return MENOR_QUE;}
@@ -33,6 +32,9 @@
 "."                      {return EOL;}
 
 [0-9]+                   { yylval.var = strdup(yytext); return NUM; }
+[0-9]+.[0-9]+            { yylval.var = strdup(yytext); return NUM; }
+"(-"[0-9]+")"                   { yylval.var = strdup(yytext); return NUM; }
+"(-"[0-9]+.[0-9]+")"            { yylval.var = strdup(yytext); return NUM; }
 [a-zA-Z_][a-zA-Z0-9_]*   { yylval.var = strdup(yytext); return VAR; }
 [ \t\n]                  ; // Ignora espaços em branco
 .                        { printf("Unknown character: %s\n", yytext); }

@@ -1,10 +1,16 @@
+#include <stdio.h>
+
 int main() {
 
-int resultado=1;
+float decimal=2.7;
 for (int i = 0; i<3;i++) {
-resultado *= 2;
+if (!(decimal>3)) {
+decimal *= 5;
+} else {
+printf("%f\n",decimal * 0.5);
 }
-printf("%d\n",resultado);
+}
+printf("%f\n",decimal + (-2));
 
 return 0;
 }
