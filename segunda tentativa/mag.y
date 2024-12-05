@@ -58,7 +58,7 @@ atribuicao:
             
             | FACA VAR SER_IGUAL_A 
             {
-                fprintf(output, "int %s=%s", $2, $4); 
+                fprintf(output, "int %s=", $2); 
             }
             operacao EOL
             {
@@ -91,9 +91,27 @@ impressao:
 
 operacao: 
             SOME VAR COM VAR
+            {
+                fprintf(output, "%s += %s", $2, $4);
+            }
+            EOL {
+                fprintf(output, ";\n");
+            }
             | SOME VAR COM NUM
+            {
+                fprintf(output, "%s += %s", $2, $4);
+            }
+            EOL {
+                fprintf(output, ";\n");
+            }
             | SOMA_DE VAR COM VAR
+            {
+                fprintf(output, "%s + %s", $2, $4);
+            }
             | SOMA_DE VAR COM NUM
+            {
+                fprintf(output, "%s + %s;\n", $2, $4);
+            }
             ;
 
 repeticao: 
