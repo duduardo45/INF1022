@@ -68,6 +68,11 @@ $$
 \begin{align}
 objeto              \rightarrow&\quad   num \\
                               |&\quad   var \\
+num                 \rightarrow&\quad   [0-9]^+ \\
+                              |&\quad   [0-9]^+.[0-9]^+ \\ 
+                              |&\quad   (-[0-9]^+) \\
+                              |&\quad   (-[0-9]^+.[0-9]^+) \\
+var                 \rightarrow&\quad   [a-zA-Z_][a-zA-Z0-9_]* \\
 condicao            \rightarrow&\quad   \text{NAO ACONTECER QUE} \; condicao\,nao\,nula \\
                               |&\quad   condicao\,nao\,nula \\
 condicao\,nao\,nula \rightarrow&\quad   objeto \; compara \; objeto \\ % condicao não nula
