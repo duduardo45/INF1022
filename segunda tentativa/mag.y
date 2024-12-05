@@ -47,13 +47,46 @@ cmd:
 
 atribuicao: 
             FACA VAR SER NUM EOL
-            | FACA VAR SER_IGUAL_A VAR EOL
-            | FACA VAR SER_IGUAL_A operacao EOL
+            | FACA VAR SER_IGUAL_A VAR
+            {
+                fprintf(output, "int %s=%s", $2, $4); 
+            } 
+            EOL
+            {
+                fprintf(output, ";\n"); 
+            }
+            
+            | FACA VAR SER_IGUAL_A 
+            {
+                fprintf(output, "int %s=%s", $2, $4); 
+            }
+            operacao EOL
+            {
+                fprintf(output, ";\n"); 
+            }
             ;
 
 impressao: 
-            MOSTRE VAR EOL
-            | MOSTRE operacao EOL
+            MOSTRE VAR 
+            {
+                fprintf(output, "printf(\"%%d\\n\",%s)", $2); 
+            }
+            EOL
+            {
+                fprintf(output, ";\n"); 
+            }
+            | MOSTRE 
+            {
+                fprintf(output, "printf(\"%%d\\n\",", $2); 
+            }
+            operacao 
+            {
+                fprintf(output, ")"); 
+            }
+            EOL
+            {
+                fprintf(output, ";\n"); 
+            }
             ;
 
 operacao: 
