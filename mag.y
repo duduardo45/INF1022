@@ -19,7 +19,7 @@ int negar = 0;
 
 %token <var> NUM
 %token <var> VAR
-%token FACA SER SER_IGUAL_A MOSTRE SOME SOMA_DE MULTIPLIQUE MULTIPLICACAO_DE COM REPITA VEZES FIM SE ENTAO SENAO
+%token FACA SER SER_IGUAL_A MOSTRE SOME SOMA_DE MULTIPLIQUE MULTIPLICACAO_DE COM POR REPITA VEZES FIM SE ENTAO SENAO
 %token NAO_ACONTECER_QUE NAO_FOR FOR
 %token MAIOR_QUE MENOR_QUE IGUAL_A MAIOR_OU_IGUAL_QUE MENOR_OU_IGUAL_QUE DIFERENTE_DE
 %token E OU
@@ -131,7 +131,7 @@ operacao:
             {
                 fprintf(output, "%s + %s", $2, $4);
             }
-            | MULTIPLIQUE VAR COM VAR
+            | MULTIPLIQUE VAR POR VAR
             {
                 fprintf(output, "%s *= %s", $2, $4);
             }
@@ -139,7 +139,7 @@ operacao:
             {
                 fprintf(output, ";\n");
             }
-            | MULTIPLIQUE VAR COM NUM
+            | MULTIPLIQUE VAR POR NUM
             {
                 fprintf(output, "%s *= %s", $2, $4);
             }
@@ -147,15 +147,15 @@ operacao:
             {
                 fprintf(output, ";\n");
             }
-            | MULTIPLICACAO_DE VAR COM VAR
+            | MULTIPLICACAO_DE VAR POR VAR
             {
                 fprintf(output, "%s * %s", $2, $4);
             }
-            | MULTIPLICACAO_DE VAR COM NUM
+            | MULTIPLICACAO_DE VAR POR NUM
             {
                 fprintf(output, "%s * %s", $2, $4);
             }
-            | MULTIPLICACAO_DE NUM COM NUM
+            | MULTIPLICACAO_DE NUM POR NUM
             {
                 fprintf(output, "%s * %s", $2, $4);
             }

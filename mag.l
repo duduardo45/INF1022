@@ -12,6 +12,7 @@
 "MULTIPLIQUE"            {return MULTIPLIQUE;}
 "MULTIPLICACAO DE"       {return MULTIPLICACAO_DE;}
 "COM"                    {return COM;}
+"POR"                    {return POR;}
 "REPITA"                 {return REPITA;}
 "VEZES:"                  {return VEZES;}
 "FIM"                    {return FIM;}
