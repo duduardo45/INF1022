@@ -27,9 +27,10 @@
 "DIFERENTE DE"           {return DIFERENTE_DE;}
 "E"                      {return E;}
 "OU"                     {return OU;}
+"."                      {return EOL;}
 
-[0-9]+                   { yylval.num = atoi(yytext); return NUM; }
+[0-9]+                   { yylval.var = strdup(yytext); return NUM; }
 [a-zA-Z_][a-zA-Z0-9_]*   { yylval.var = strdup(yytext); return VAR; }
 [ \t\n]                  ; // Ignora espaços em branco
-.                        return yytext[0];
+.                        { printf("Unknown character: %s\n", yytext); }
 %%

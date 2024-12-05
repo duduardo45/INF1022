@@ -39,7 +39,7 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "Compilando o executável..."
-gcc lex.yy.c y.tab.c -o parser -lfl
+gcc lex.yy.c y.tab.c -o parser -ll
 if [ $? -ne 0 ]; then
     echo "Erro ao compilar os arquivos gerados."
     exit 1
@@ -53,7 +53,7 @@ if [ $? -ne 0 ]; then
 fi
 
 gcc lex.yy.c y.tab.c -o mag -ll
-./mag < $MAG_FILE
+./mag < "$MAG_FILE"
 
 echo "Execução concluída."
 
