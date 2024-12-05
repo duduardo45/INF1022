@@ -19,7 +19,7 @@ int negar = 0;
 
 %token <var> NUM
 %token <var> VAR
-%token FACA SER SER_IGUAL_A MOSTRE SOME SOMA_DE COM REPITA VEZES FIM SE ENTAO SENAO
+%token FACA SER SER_IGUAL_A MOSTRE SOME SOMA_DE MULTIPLIQUE MULTIPLICACAO_DE COM REPITA VEZES FIM SE ENTAO SENAO
 %token NAO_ACONTECER_QUE NAO_FOR FOR
 %token MAIOR_QUE MENOR_QUE IGUAL_A MAIOR_OU_IGUAL_QUE MENOR_OU_IGUAL_QUE DIFERENTE_DE
 %token E OU
@@ -76,9 +76,13 @@ atribuicao:
             ;
 
 impressao: 
-            MOSTRE VAR 
+            MOSTRE 
             {
-                fprintf(output, "printf(\"%%d\\n\",%s)", $2); 
+                fprintf(output, "printf(\"%%d\\n\","); 
+            }
+            objeto 
+            {
+                fprintf(output, ")"); 
             }
             EOL
             {
@@ -123,6 +127,38 @@ operacao:
             {
                 fprintf(output, "%s + %s", $2, $4);
             }
+            | SOMA_DE NUM COM NUM
+            {
+                fprintf(output, "%s + %s", $2, $4);
+            }
+            | MULTIPLIQUE VAR COM VAR
+            {
+                fprintf(output, "%s *= %s", $2, $4);
+            }
+            EOL 
+            {
+                fprintf(output, ";\n");
+            }
+            | MULTIPLIQUE VAR COM NUM
+            {
+                fprintf(output, "%s *= %s", $2, $4);
+            }
+            EOL 
+            {
+                fprintf(output, ";\n");
+            }
+            | MULTIPLICACAO_DE VAR COM VAR
+            {
+                fprintf(output, "%s * %s", $2, $4);
+            }
+            | MULTIPLICACAO_DE VAR COM NUM
+            {
+                fprintf(output, "%s * %s", $2, $4);
+            }
+            | MULTIPLICACAO_DE NUM COM NUM
+            {
+                fprintf(output, "%s * %s", $2, $4);
+            }
             ;
 
 repeticao: 
@@ -145,27 +181,19 @@ condicional:
             {
                 fprintf(output, ") {\n");
             }
-            cmds FIM 
-            {
-                fprintf(output, "}\n");
-            }
-            | SE 
-            {
-                fprintf(output, "if (");
-            }
-            condicao ENTAO 
-            {
-                fprintf(output, ") {\n");
-            }
-            cmds SENAO 
-            {
-                fprintf(output, "} else {\n");
-            }
-            cmds FIM 
+            cmds else FIM 
             {
                 fprintf(output, "}\n");
             }
             ;
+
+else:
+            SENAO 
+            {
+                fprintf(output, "} else {\n");
+            }
+            cmds
+            | {} // caso onde não tem else
 
 condicao: 
             NAO_ACONTECER_QUE 
@@ -180,16 +208,15 @@ condicao:
             ;
 
 condicao_nao_nula: 
-            
-            {
+            objeto
+            |{
                 if (negar) fprintf(output, "!(");
             }
             objeto compara objeto
             {
                 if (negar) fprintf(output, ")");
             }
-            | 
-            {
+            |{
                 if (negar) fprintf(output, "!(");
             }
             objeto compara objeto operador_logico condicao

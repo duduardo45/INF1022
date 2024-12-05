@@ -9,6 +9,8 @@
 "MOSTRE"                 {return MOSTRE;}
 "SOME"                   {return SOME;}
 "SOMA DE"                {return SOMA_DE;}
+"MULTIPLIQUE"            {return MULTIPLIQUE;}
+"MULTIPLICACAO DE"       {return MULTIPLICACAO_DE;}
 "COM"                    {return COM;}
 "REPITA"                 {return REPITA;}
 "VEZES:"                  {return VEZES;}

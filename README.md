@@ -40,7 +40,7 @@ cmd         \rightarrow&\quad   atribuicao \\
 atribuicao  \rightarrow&\quad   \text{FACA} \; var \; \text{SER} \; num. \\ % ideia usar ponteiros 
                       |&\quad   \text{FACA} \; var \; \text{SER IGUAL A} \; objeto. \\ % e aqui fazer copias
                       |&\quad   \text{FACA} \; var \; \text{SER IGUAL A} \; operacao. \\
-impressao   \rightarrow&\quad   \text{MOSTRE} \; var. \\
+impressao   \rightarrow&\quad   \text{MOSTRE} \; objeto. \\
                       |&\quad   \text{MOSTRE} \; operacao. \\
 operacao    \rightarrow&\quad   \text{SOME} \; var \; \text{COM} \; var \\ % talvez estes serem += 
                       |&\quad   \text{SOME} \; var \; \text{COM} \; num \\ % talvez criar um ADICIONE
@@ -48,9 +48,15 @@ operacao    \rightarrow&\quad   \text{SOME} \; var \; \text{COM} \; var \\ % tal
                       |&\quad   \text{SOMA DE} \; var \; \text{COM} \; var \\ % e estes serem +
                       |&\quad   \text{SOMA DE} \; var \; \text{COM} \; num \\
                       |&\quad   \text{SOMA DE} \; num \; \text{COM} \; num \\
+                      |&\quad   \text{MULTIPLIQUE} \; var \; \text{COM} \; var \\ % talvez estes serem *= 
+                      |&\quad   \text{MULTIPLIQUE} \; var \; \text{COM} \; num \\
+                      |&\quad   \text{MULTIPLICACAO DE} \; var \; \text{COM} \; var \\ % e estes serem *
+                      |&\quad   \text{MULTIPLICACAO DE} \; var \; \text{COM} \; num \\
+                      |&\quad   \text{MULTIPLICACAO DE} \; num \; \text{COM} \; num \\
 repeticao   \rightarrow&\quad   \text{REPITA} \;num \; \text{VEZES} \, : \, cmds \; \text{FIM} \\
-condicional \rightarrow&\quad   \text{SE} \; condicao \; \text{ENTAO} \; cmds \; \text{FIM} \\
-                      |&\quad   \text{SE} \; condicao \; \text{ENTAO} \; cmds \; \text{SENAO} \; cmds \; \text{FIM} \\
+condicional \rightarrow&\quad   \text{SE} \; condicao \; \text{ENTAO} \; cmds \; else \; \text{FIM} \\
+else        \rightarrow&\quad   \text{SENAO} \; cmds \\
+                      |&\quad   % ou não escreve nada no senão
 \end{align}
 $$
 

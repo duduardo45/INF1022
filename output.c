@@ -1,6 +1,7 @@
 int main() {
 
-int n=4;
-if (n
+int x=3;
+int y=5;
+
 return 0;
 }
