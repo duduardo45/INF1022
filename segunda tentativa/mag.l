@@ -11,7 +11,7 @@
 "SOMA DE"                {return SOMA_DE;}
 "COM"                    {return COM;}
 "REPITA"                 {return REPITA;}
-"VEZES"                  {return VEZES;}
+"VEZES:"                  {return VEZES;}
 "FIM"                    {return FIM;}
 "SE"                     {return SE;}
 "ENTAO"                  {return ENTAO;}

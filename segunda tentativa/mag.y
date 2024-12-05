@@ -46,7 +46,14 @@ cmd:
             ;
 
 atribuicao: 
-            FACA VAR SER NUM EOL
+            FACA VAR SER NUM 
+            {
+                fprintf(output, "int %s=%s", $2, $4); 
+            }
+            EOL
+            {
+                fprintf(output, ";\n"); 
+            }
             | FACA VAR SER_IGUAL_A VAR
             {
                 fprintf(output, "int %s=%s", $2, $4); 
@@ -115,7 +122,7 @@ operacao:
             ;
 
 repeticao: 
-            REPITA NUM VEZES ':' cmds FIM
+            REPITA NUM VEZES cmds FIM
             ;
 
 condicional: 
