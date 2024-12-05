@@ -84,7 +84,7 @@ impressao:
             }
             | MOSTRE 
             {
-                fprintf(output, "printf(\"%%d\\n\",", $2); 
+                fprintf(output, "printf(\"%%d\\n\","); 
             }
             operacao 
             {
@@ -122,48 +122,46 @@ operacao:
             ;
 
 repeticao: 
-            REPITA NUM VEZES cmds FIM
+            REPITA NUM VEZES cmds FIM {}
             ;
 
 condicional: 
-            SE condicao ENTAO cmds FIM
-            | SE condicao ENTAO cmds SENAO cmds FIM
+            SE condicao ENTAO cmds FIM {}
+            | SE condicao ENTAO cmds SENAO cmds FIM {}
             ;
 
 condicao: 
-            NAO_ACONTECER_QUE condicao_nao_nula
-            | condicao_nao_nula {
-                  $$ = $1;
-              }
+            NAO_ACONTECER_QUE condicao_nao_nula {}
+            | condicao_nao_nula  {}
             ;
 
 condicao_nao_nula: 
-            objeto compara objeto
-            | objeto compara objeto operador_logico condicao
+            objeto compara objeto {}
+            | objeto compara objeto operador_logico condicao {}
             ;
 
 compara: 
-            NAO_FOR comparador
-            | FOR comparador
+            NAO_FOR comparador {}
+            | FOR comparador {}
             ;
 
 comparador: 
-            MAIOR_QUE          
-            | MENOR_QUE          
-            | IGUAL_A            
-            | MAIOR_OU_IGUAL_QUE 
-            | MENOR_OU_IGUAL_QUE 
-            | DIFERENTE_DE       
+            MAIOR_QUE             {}
+            | MENOR_QUE           {}
+            | IGUAL_A             {}
+            | MAIOR_OU_IGUAL_QUE  {}
+            | MENOR_OU_IGUAL_QUE  {}
+            | DIFERENTE_DE        {}
             ;
 
 operador_logico: 
-            E
-            | OU
+            E {}
+            | OU {}
             ;
 
 objeto: 
-            NUM
-            | VAR
+            NUM {}
+            | VAR {}
             ;
 
 %%
