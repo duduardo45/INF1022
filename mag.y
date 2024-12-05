@@ -8,8 +8,6 @@ FILE *output = NULL;
 void yyerror(const char *s);
 int yylex();
 
-int negar = 0;
-
 %}
 
 %union {

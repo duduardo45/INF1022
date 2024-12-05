@@ -25,7 +25,7 @@ repeticao   \rightarrow&\quad   \text{REPITA} \; num \; \text{VEZES} \; : \; cmd
 \end{align}
 $$
 ___
-## **Outra possível gramática:**
+## **Gramática Implementada Neste Trabalho:**
 
 $$
 \begin{align}
@@ -56,16 +56,7 @@ operacao    \rightarrow&\quad   \text{SOME} \; var \; \text{COM} \; var \\ % tal
 repeticao   \rightarrow&\quad   \text{REPITA} \;num \; \text{VEZES} \, : \, cmds \; \text{FIM} \\
 condicional \rightarrow&\quad   \text{SE} \; condicao \; \text{ENTAO} \; cmds \; else \; \text{FIM} \\
 else        \rightarrow&\quad   \text{SENAO} \; cmds \\
-                      |&\quad   % ou não escreve nada no senão
-\end{align}
-$$
-
-___
-
-### Regras menores da gramática
-
-$$
-\begin{align}
+                      |&\quad   \\% ou não escreve nada no senão 
 objeto              \rightarrow&\quad   num \\
                               |&\quad   var \\
 num                 \rightarrow&\quad   [0-9]^+ \\
@@ -77,14 +68,12 @@ condicao            \rightarrow&\quad   \text{NAO ACONTECER QUE} \; condicao\,na
                               |&\quad   condicao\,nao\,nula \\
 condicao\,nao\,nula \rightarrow&\quad   objeto \; compara \; objeto \\ % condicao não nula
                               |&\quad   objeto \; compara \; objeto \; operador\,logico \; condicao \\
-compara             \rightarrow&\quad   \text{NAO FOR} \; comparador \\
-                              |&\quad   \text{FOR} \; comparador \\
-comparador          \rightarrow&\quad   \text{MAIOR QUE} \\
-                              |&\quad   \text{MENOR QUE} \\
-                              |&\quad   \text{IGUAL A} \\
-                              |&\quad   \text{MAIOR OU IGUAL QUE} \\
-                              |&\quad   \text{MENOR OU IGUAL QUE} \\
-                              |&\quad   \text{DIFERENTE DE} \\
+compara             \rightarrow&\quad   \text{FOR MAIOR QUE} \\
+                              |&\quad   \text{FOR MENOR QUE} \\
+                              |&\quad   \text{FOR IGUAL A} \\
+                              |&\quad   \text{FOR MAIOR OU IGUAL QUE} \\
+                              |&\quad   \text{FOR MENOR OU IGUAL QUE} \\
+                              |&\quad   \text{FOR DIFERENTE DE} \\
 operador\,logico    \rightarrow&\quad   \text{E} \\
                               |&\quad   \text{OU} \\
 \end{align}
