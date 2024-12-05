@@ -1,0 +1,15 @@
+# ignora arquivos sem extensão
+*
+!/**/
+!*.*
+
+venv/
+.venv/
+env/
+.env/
+
+
+*.tab.c
+*.tab.h
+*.yy.c
+.zip

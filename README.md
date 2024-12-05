@@ -74,6 +74,7 @@ comparador          \rightarrow&\quad   \text{MAIOR QUE} \\
                               |&\quad   \text{MAIOR OU IGUAL QUE} \\
                               |&\quad   \text{MENOR OU IGUAL QUE} \\
                               |&\quad   \text{DIFERENTE DE} \\
-operador\,logico    \rightarrow&\quad
+operador\,logico    \rightarrow&\quad   \text{E} \\
+                              |&\quad   \text{OU} \\
 \end{align}
 $$
