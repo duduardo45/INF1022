@@ -8,6 +8,8 @@ FILE *output = NULL;
 void yyerror(const char *s);
 int yylex();
 
+int negar = 0;
+
 %}
 
 %union {
@@ -101,14 +103,16 @@ operacao:
             {
                 fprintf(output, "%s += %s", $2, $4);
             }
-            EOL {
+            EOL 
+            {
                 fprintf(output, ";\n");
             }
             | SOME VAR COM NUM
             {
                 fprintf(output, "%s += %s", $2, $4);
             }
-            EOL {
+            EOL 
+            {
                 fprintf(output, ";\n");
             }
             | SOMA_DE VAR COM VAR
@@ -117,51 +121,105 @@ operacao:
             }
             | SOMA_DE VAR COM NUM
             {
-                fprintf(output, "%s + %s;\n", $2, $4);
+                fprintf(output, "%s + %s", $2, $4);
             }
             ;
 
 repeticao: 
-            REPITA NUM VEZES cmds FIM {}
+            REPITA NUM VEZES 
+            {
+                fprintf(output, "for (int i = 0; i<%s;i++) {\n", $2);
+            }
+            cmds FIM 
+            {
+                fprintf(output, "}\n");
+            }
             ;
 
 condicional: 
-            SE condicao ENTAO cmds FIM {}
-            | SE condicao ENTAO cmds SENAO cmds FIM {}
+            SE 
+            {
+                fprintf(output, "if (");
+            }
+            condicao ENTAO 
+            {
+                fprintf(output, ") {\n");
+            }
+            cmds FIM 
+            {
+                fprintf(output, "}\n");
+            }
+            | SE 
+            {
+                fprintf(output, "if (");
+            }
+            condicao ENTAO 
+            {
+                fprintf(output, ") {\n");
+            }
+            cmds SENAO 
+            {
+                fprintf(output, "} else {\n");
+            }
+            cmds FIM 
+            {
+                fprintf(output, "}\n");
+            }
             ;
 
 condicao: 
-            NAO_ACONTECER_QUE condicao_nao_nula {}
-            | condicao_nao_nula  {}
+            NAO_ACONTECER_QUE 
+            {
+                fprintf(output, "!(");
+            }
+            condicao_nao_nula
+            {
+                fprintf(output, ")");
+            }
+            | condicao_nao_nula
             ;
 
 condicao_nao_nula: 
-            objeto compara objeto {}
-            | objeto compara objeto operador_logico condicao {}
+            
+            {
+                if (negar) fprintf(output, "!(");
+            }
+            objeto compara objeto
+            {
+                if (negar) fprintf(output, ")");
+            }
+            | 
+            {
+                if (negar) fprintf(output, "!(");
+            }
+            objeto compara objeto operador_logico condicao
+            {
+                if (negar) fprintf(output, ")");
+            }
             ;
 
 compara: 
-            NAO_FOR comparador {}
-            | FOR comparador {}
+            NAO_FOR comparador { negar = 1; }
+            | FOR comparador { negar = 0; }
             ;
 
 comparador: 
-            MAIOR_QUE             {}
-            | MENOR_QUE           {}
-            | IGUAL_A             {}
-            | MAIOR_OU_IGUAL_QUE  {}
-            | MENOR_OU_IGUAL_QUE  {}
-            | DIFERENTE_DE        {}
+            MAIOR_QUE             { fprintf(output, ">"); }
+            | MENOR_QUE           { fprintf(output, "<"); }
+            | IGUAL_A             { fprintf(output, "=="); }
+            | MAIOR_OU_IGUAL_QUE  { fprintf(output, ">="); }
+            | MENOR_OU_IGUAL_QUE  { fprintf(output, "<="); }
+            | DIFERENTE_DE        { fprintf(output, "!="); }
             ;
 
 operador_logico: 
-            E {}
-            | OU {}
+            E { fprintf(output, "&&"); }
+            | OU { fprintf(output, "||"); }
             ;
 
 objeto: 
-            NUM {}
-            | VAR {}
+            NUM { fprintf(output, "%s", $1); }
+            | VAR { fprintf(output, "%s", $1); }
             ;
 
 %%
@@ -176,7 +234,7 @@ int main() {
         perror("Erro ao criar arquivo de saída");
         return 1;
     }
-    fprintf(output, "int main() {\n"); 
+    fprintf(output, "int main() {\n\n"); 
     yyparse();
     fprintf(output, "\nreturn 0;\n}\n");
     fclose(output);
