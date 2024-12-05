@@ -52,9 +52,6 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-gcc lex.yy.c y.tab.c -o mag -ll
-./mag < "$MAG_FILE"
-
 echo "Execução concluída."
 
 
