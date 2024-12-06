@@ -37,5 +37,5 @@
 "(-"[0-9]+.[0-9]+")"            { yylval.var = strdup(yytext); return NUM; }
 [a-zA-Z_][a-zA-Z0-9_]*   { yylval.var = strdup(yytext); return VAR; }
 [ \t\n]                  ; // Ignora espaços em branco
-.                        { printf("Unknown character: %s\n", yytext); }
+.                        {}
 %%
