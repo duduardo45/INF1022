@@ -2,15 +2,14 @@
 
 int main() {
 
-float decimal=2.7;
-for (int i = 0; i<3;i++) {
-if (!(decimal>3)) {
-decimal *= 5;
+float ponto1=10 + 21;
+float ponto2=ponto1;
+ponto2 += (-10);
+if (ponto1<ponto2||ponto2!=20) {
+printf("%f\n",10);
 } else {
-printf("%f\n",decimal * 0.5);
+printf("%f\n",ponto1);
 }
-}
-printf("%f\n",decimal + (-2));
 
 return 0;
 }
